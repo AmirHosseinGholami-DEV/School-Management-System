@@ -1,0 +1,185 @@
+{% load static %}
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0;">
+    {% if teachers %}
+        <title>پنل ادمین {{ teachers.0.name }}</title>
+    {% endif %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="{% static "Static Teacher/css/style.css" %}">
+    <link rel="stylesheet" href="{% static "Static Teacher/css/responsive_991.css" %}" media="(max-width:991px)">
+    <link rel="stylesheet" href="{% static "Static Teacher/css/responsive_768.css" %}" media="(max-width:768px)">
+    <link rel="stylesheet" href="{% static "Static Teacher/css/font.css" %}">
+</head>
+
+<body>
+    <script>
+        function submitDeleteForm(studentId) {
+            const form = document.getElementById('delete-form-' + studentId);
+            if (form) {
+                form.submit();
+            }
+        }
+    </script>
+    <style>
+        .score-input {
+            width: 100px;
+            padding: 10px;
+            text-align: center;
+            border: 2px solid #007bff; 
+            border-radius: 8px; 
+            background-color: #f1f1f1;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+    
+        .score-input:focus {
+            border-color: #28a745; 
+            box-shadow: 0 0 8px rgba(40, 167, 69, 0.5); 
+        }
+    
+        .score-input::placeholder {
+            color: #aaa; 
+            font-style: italic; 
+        }
+    
+        
+    </style>
+    <div class="sidebar__nav border-top border-left  ">
+        <span class="bars d-none padding-0-18"></span>
+        <div class="profile__info border cursor-pointer text-center">
+            {% if teachers %}
+                <div class="avatar__img">
+                    {% if teachers.0.photo %}
+                        <img src="{{ teachers.0.photo.url }}" alt="Profile Photo">
+                    {% else %}
+                        <p>عکس موجود نیست</p>
+                    {% endif %}
+                </div>
+                <span class="profile__name">{{ teachers.0.name }}</span>
+            {% else %}
+                <p>اطلاعات معلم وجود ندارد</p>
+            {% endif %}
+        </div>
+
+
+        <ul>
+            <li class="item-li i-categories is-active"><a href="{% url "teacher" %}">نمرات</a></li>
+            <li class="item-li i-user__inforamtion"><a href="{% url "teacher_absence" %}">حضور و غیاب</a></li>
+            <li class="item-li i-users"><a href="{% url "Change Page Teacher" %}">تغییر اطلاعات</a></li>
+        </ul>
+
+    </div>
+    <div class="content">
+        <div class="header d-flex item-center bg-white width-100 border-bottom padding-12-30">
+            <div class="header__right d-flex flex-grow-1 item-center">
+                <span class="bars"></span>
+            </div>
+            <div class="header__left d-flex flex-end item-center margin-top-2">
+                <a href="{% url "Home Page" %}" class="logout" title="خروج"></a>
+            </div>
+        </div>
+        <div class="tab__box">
+            <div class="tab__items">
+                <a class="tab__item" href="{% url "teacher" %}">مهر</a>
+                <a class="tab__item is-active" href="{% url "teacher_Aban" %}">آبان</a>
+                <a class="tab__item" href="{% url "teacher_Azar" %}">آذر</a>
+            </div>
+        </div>
+        <div class="breadcrumb">
+        </div>
+        <div class="main-content padding-0 categories">
+            <div class="row no-gutters">
+                <div class="col-8 margin-left-10 margin-bottom-15 border-radius-3">
+                    {% if students %}
+                        <p class="box__title">لیست دانش‌آموزان و نمرات</p>
+                        <div class="table__box">
+                            <form action="{% url 'teacher_Aban' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="class" value="{{ selected_class }}">
+                                <table class="table">
+                                    <thead role="rowgroup">
+                                        <tr role="row" class="title-row">
+                                            <th>ردیف</th>
+                                            <th>نام دانش‌آموز</th>
+                                            <th>نمره</th>
+                                            <th>ماه تحصیلی</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for student in students %}
+                                            <tr role="row">
+                                                <td>{{ forloop.counter }}</td>
+                                                <td>{{ student.name }}</td>
+                                                <td>
+                                                    <input 
+                                                        style="width: 100px;" 
+                                                        type="text" 
+                                                        name="score_{{ student.id }}" 
+                                                        id="score_{{ student.id }}" 
+                                                        placeholder="نمره" 
+                                                        class="form-control text-center score-input" 
+                                                        value="{% if student_scores|get_item:student.name %}{{ student_scores|get_item:student.name }}{% else %}{% endif %}" 
+                                                        oninput="validateInput(this)" 
+                                                        title="لطفاً فقط اعداد بین 0 تا 20 وارد کنید"
+                                                    >
+                                                </td>
+                                                <script>
+                                                    function validateInput(input) {
+                                                        input.value = input.value.replace(/[^0-9.]/g, '');
+                                                        const value = parseFloat(input.value);
+
+                                                        if (value > 20) {
+                                                            input.value = 20;
+                                                        } else if (value < 0) {
+                                                            input.value = 0;
+                                                        }
+                                                    }
+                                                </script>
+                                                <td>آبان</td>
+                                            </tr>
+                                        {% endfor %}
+                                        <tr>
+                                            <td colspan="4" class="text-center">
+                                                <button type="submit" class="btn btn-primary">ثبت نمرات</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </form>
+                        </div>
+                    {% else %}
+                        <p>هیچ دانش‌آموزی برای این کلاس وجود ندارد.</p>
+                    {% endif %}
+                </div>
+                <div class="col-4 bg-white">
+                    <p class="box__title">انتخاب پایه تحصیلی</p>
+                    <form method="GET" class="padding-30">
+                        {% csrf_token %}
+                        <select name="class" id="class-select" class="form-control" onchange="this.form.submit()">
+                            <option value="">پایه مورد نظر را انتخاب کنید ...</option>
+                            {% for class_name in teacher_classes %}
+                                <option value="{{ class_name }}" {% if selected_class == class_name %} selected {% endif %}>
+                                    {{ class_name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </form>
+                </div> 
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static "Static Teacher/js/jquery-3.4.1.min.js" %}"></script>
+    <script src="{% static "Static Teacher/js/js.js" %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+    <script src="{% static "Static Teacher/js/tagsInput.js" %}"></script>
+</body>
+
+</html>

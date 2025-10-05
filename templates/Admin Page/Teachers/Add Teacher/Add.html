@@ -1,0 +1,403 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0;">
+    <title>پنل ادمین مدرسه زنده یاد کردی</title>
+    <link rel="stylesheet" href="{% static "Static Admin Dashboard/Add Student/css/style.css" %}">
+    <link rel="stylesheet" href="{% static "Static Admin Dashboard/Add Student/css/responsive_991.css" %}" media="(max-width:991px)">
+    <link rel="stylesheet" href="{% static "Static Admin Dashboard/Add Student/css/responsive_768.css" %}" media="(max-width:768px)">
+    <link rel="stylesheet" href="{% static "Static Admin Dashboard/Add Student/css/font.css" %}">
+</head>
+
+<style>
+
+    /* استایل های دکمه های عملیات */
+    .item-delete, .item-edit {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        margin: 0 5px;
+        cursor: pointer;
+        transition: opacity 0.3s;
+    }
+
+    .item-delete:hover, .item-edit:hover {
+        opacity: 0.8;
+    }
+
+    /* استایل های تب */
+    .tab__box {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        overflow: hidden;
+    }
+
+    .tab__items {
+        display: flex;
+        flex-wrap: wrap;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .tab__item {
+        padding: 12px 20px;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-decoration: none;
+        color: #555;
+    }
+
+    .tab__item.is-active {
+        color: #3498db;
+        border-bottom: 2px solid #3498db;
+    }
+
+    .tab__item:hover {
+        background-color: #f5f5f5;
+        border-radius: 12px;
+    }
+</style>
+
+<body>
+    <div class="sidebar__nav border-top border-left  ">
+        <span class="bars d-none padding-0-18"></span>
+        <a class="header__logo  d-none"></a>
+        <div class="profile__info border cursor-pointer text-center">
+            {% for user in users %}
+                <div class="avatar__img">
+                    <img src="{{ user.photo.url }}" alt="Profile Picture">
+                </div>
+                <span class="profile__name">{{ user.name }}</span>
+            {% endfor %}
+        </div>
+
+        <ul>
+            <li class="item-li i-users"><a href="{% url "admin_dashboard" %}">دانش آموزان</a></li>
+            <li class="item-li i-users is-active"><a href="{% url "admin_dashboard_teacher_seven_one" %}">معلمان</a></li>
+            <li class="item-li i-users"><a href="{% url "admin_dashboard_staff" %}">کارکنان</a></li>
+            <li class="item-li i-user__inforamtion"><a href="{% url "admin_dashboard_absence_seven_one" %}">حضور و غیاب</a></li>
+            <li class="item-li i-ads"><a href="{% url "admin_dashboard_news" %}">اخبار</a></li>
+            <li class="item-li i-banners"><a href="{% url "admin_dashboard_facilities" %}">امکانات</a></li>
+            <li class="item-li i-comments"><a href="{% url "admin_dashboard_contact" %}">تماس با ما</a></li>
+            <li class="item-li i-dashboard"><a href="{% url "admin_dashboard_service" %}">دوره ها</a></li>
+            <li class="item-li i-transactions"><a href="{% url "admin_dashboard_common" %}">لیست مشترکین</a></li>
+        </ul>
+
+    </div>
+    <div class="content">
+        <div class="header d-flex item-center bg-white width-100 border-bottom padding-12-30">
+            <div class="header__right d-flex flex-grow-1 item-center">
+                <span class="bars"></span>
+            </div>
+            <div class="header__left d-flex flex-end item-center margin-top-2">
+                <a href="{% url "Home Page" %}" class="logout" title="خروج"></a>
+            </div>
+        </div>
+        <div class="main-content font-size-13">
+            <div class="tab__box">
+                <div class="tab__items">
+                    <a class="tab__item" href="{% url "admin_dashboard_teacher_seven_one" %}">هفتم یک</a>
+                    <a class="tab__item" href="{% url "admin_dashboard_teacher_seven_two" %}">هفتم دو</a>
+                    <a class="tab__item" href="{% url "admin_dashboard_teacher_eight_one" %}">هشتم یک</a>
+                    <a class="tab__item" href="{% url "admin_dashboard_teacher_eight_two" %}">هشتم دو</a>
+                    <a class="tab__item" href="{% url "admin_dashboard_teacher_nine_one" %}">نهم یک</a>
+                    <a class="tab__item" href="{% url "admin_dashboard_teacher_nine_two" %}">نهم دو</a>
+                    <a class="tab__item is-active" href="{% url "Add Teacher" %}">افزودن معلمان ...</a>
+                </div>
+            </div>
+        </div>
+              
+
+        <style>
+            .error-message {
+                background-color: rgb(255, 128, 109);
+                height: 60px;
+                border-radius: 4px;
+                width: 1500px;
+                padding-top: 15px;
+                padding-right: 70px;
+            }
+        </style>
+            
+
+
+
+        {% if form_teacher_seven_one.non_field_errors %}
+            {% for error in form_teacher_seven_one.non_field_errors %}
+                <span class="error-message">{{ error }}</span>
+            {% endfor %}        
+        {% endif %}
+
+        {% if form_teacher_seven_two.non_field_errors %}
+            {% for error in form_teacher_seven_two.non_field_errors %}
+                <span class="error-message">{{ error }}</span>
+            {% endfor %}        
+        {% endif %}
+
+        {% if form_student_eight_one.non_field_errors %}
+            {% for error in form_student_eight_one.non_field_errors %}
+                <span class="error-message">{{ error }}</span>
+            {% endfor %}        
+        {% endif %}
+
+
+        {% if form_student_eight_two.non_field_errors %}
+            {% for error in form_student_eight_two.non_field_errors %}
+                <span class="error-message">{{ error }}</span>
+            {% endfor %}        
+        {% endif %}
+
+        {% if form_student_nine_one.non_field_errors %}
+            {% for error in form_student_nine_one.non_field_errors %}
+                <span class="error-message">{{ error }}</span>
+            {% endfor %}        
+        {% endif %}
+
+
+        {% if form_student_nine_two.non_field_errors %}
+            {% for error in form_student_nine_two.non_field_errors %}
+                <span class="error-message">{{ error }}</span>
+            {% endfor %}        
+        {% endif %}
+
+
+        <div class="main-content padding-0 categories">
+            <div class="row no-gutters">
+
+                <div style="padding-right:90px;"></div>
+
+                <div class="col-4 bg-white">
+
+                    
+                    
+
+                    <p class="box__title">ایجاد معلم هفتم یک</p>
+                    <form action="{% url 'Add Teacher Seven One' %}" method="post" enctype="multipart/form-data" class="padding-30">
+                        {% csrf_token %}
+                        <input type="text" name="name" placeholder="نام و نام خانوادگی" class="text">
+                        <input type="number" name="username" placeholder="نام کاربری" class="text">
+                        <input type="password" name="password" placeholder="رمز عبور" class="text">
+                        <select name="course" id="month-select">
+                            <option value="0">درس معلم را انتخاب کنید ...</option>
+                            <option value="فیزیک" {% if selected_course == 'فیزیک' %}selected{% endif %}>فیزیک</option>
+                            <option value="شیمی" {% if selected_course == 'شیمی' %}selected{% endif %}>شیمی</option>
+                            <option value="زیست" {% if selected_course == 'زیست' %}selected{% endif %}>زیست</option>
+                            <option value="ریاضی" {% if selected_course == 'ریاضی' %}selected{% endif %}>ریاضی</option>
+                            <option value="ادبیات" {% if selected_course == 'ادبیات' %}selected{% endif %}>ادبیات</option>
+                            <option value="املا" {% if selected_course == 'املا' %}selected{% endif %}>املا</option>
+                            <option value="نگارش" {% if selected_course == 'نگارش' %}selected{% endif %}>نگارش</option>
+                            <option value="انگلیسی" {% if selected_course == 'انگلیسی' %}selected{% endif %}>انگلیسی</option>
+                            <option value="عربی" {% if selected_course == 'عربی' %}selected{% endif %}>عربی</option>
+                            <option value="قرآن" {% if selected_course == 'قرآن' %}selected{% endif %}>قرآن</option>
+                            <option value="معارف" {% if selected_course == 'معارف' %}selected{% endif %}>معارف</option>
+                            <option value="کار و فن" {% if selected_course == 'کار و فن' %}selected{% endif %}>کار و فن</option>
+                            <option value="رایانه" {% if selected_course == 'رایانه' %}selected{% endif %}>رایانه</option>
+                            <option value="مطالعات" {% if selected_course == 'مطالعات' %}selected{% endif %}>مطالعات</option>
+                            <option value="تفکر" {% if selected_course == 'تفکر' %}selected{% endif %}>تفکر</option>
+                            <option value="فرهنگ و هنر" {% if selected_course == 'فرهنگ و هنر' %}selected{% endif %}>فرهنگ و هنر</option>
+                            <option value="ورزش" {% if selected_course == 'ورزش' %}selected{% endif %}>ورزش</option>
+                        </select>
+                        <input type="number" name="phone_number" placeholder="شماره تلفن" class="text">
+                        <input type="file" name="photo" id="fileUpload" class="custom-file-upload">
+                        <button class="btn btn-kordiborazjan_net" type="submit">ثبت معلم</button>
+                    </form>
+                </div>
+
+                <div style="padding-left:140px;"></div>
+
+                <div class="col-4 bg-white">
+                    <p class="box__title">ایجاد معلم هفتم دو</p>
+                    <form action="{% url 'Add Teacher Seven Two' %}" method="post" enctype="multipart/form-data" class="padding-30">
+                        {% csrf_token %}
+                        <input type="text" name="name" placeholder="نام و نام خانوادگی" class="text">
+                        <input type="number" name="username" placeholder="نام کاربری" class="text">
+                        <input type="password" name="password" placeholder="رمز عبور" class="text">
+                        <select name="course" id="month-select">
+                            <option value="0">درس معلم را انتخاب کنید ...</option>
+                            <option value="فیزیک" {% if selected_course == 'فیزیک' %}selected{% endif %}>فیزیک</option>
+                            <option value="شیمی" {% if selected_course == 'شیمی' %}selected{% endif %}>شیمی</option>
+                            <option value="زیست" {% if selected_course == 'زیست' %}selected{% endif %}>زیست</option>
+                            <option value="ریاضی" {% if selected_course == 'ریاضی' %}selected{% endif %}>ریاضی</option>
+                            <option value="ادبیات" {% if selected_course == 'ادبیات' %}selected{% endif %}>ادبیات</option>
+                            <option value="املا" {% if selected_course == 'املا' %}selected{% endif %}>املا</option>
+                            <option value="نگارش" {% if selected_course == 'نگارش' %}selected{% endif %}>نگارش</option>
+                            <option value="انگلیسی" {% if selected_course == 'انگلیسی' %}selected{% endif %}>انگلیسی</option>
+                            <option value="عربی" {% if selected_course == 'عربی' %}selected{% endif %}>عربی</option>
+                            <option value="قرآن" {% if selected_course == 'قرآن' %}selected{% endif %}>قرآن</option>
+                            <option value="معارف" {% if selected_course == 'معارف' %}selected{% endif %}>معارف</option>
+                            <option value="کار و فن" {% if selected_course == 'کار و فن' %}selected{% endif %}>کار و فن</option>
+                            <option value="رایانه" {% if selected_course == 'رایانه' %}selected{% endif %}>رایانه</option>
+                            <option value="مطالعات" {% if selected_course == 'مطالعات' %}selected{% endif %}>مطالعات</option>
+                            <option value="تفکر" {% if selected_course == 'تفکر' %}selected{% endif %}>تفکر</option>
+                            <option value="فرهنگ و هنر" {% if selected_course == 'فرهنگ و هنر' %}selected{% endif %}>فرهنگ و هنر</option>
+                            <option value="ورزش" {% if selected_course == 'ورزش' %}selected{% endif %}>ورزش</option>
+                        </select>
+                        <input type="number" name="phone_number" placeholder="شماره تلفن" class="text">
+                        <input type="file" name="photo" id="fileUpload" class="custom-file-upload">
+                        <button class="btn btn-kordiborazjan_net" type="submit">ثبت معلم</button>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content padding-0 categories">
+            <div class="row no-gutters">
+
+                <div style="padding-right:90px;"></div>
+
+                <div class="col-4 bg-white">
+                    <p class="box__title">ایجاد معلم هشتم یک</p>
+                    <form action="{% url 'Add Teacher Eight One' %}" method="post" enctype="multipart/form-data" class="padding-30">
+                        {% csrf_token %}
+                        <input type="text" name="name" placeholder="نام و نام خانوادگی" class="text">
+                        <input type="number" name="username" placeholder="نام کاربری" class="text">
+                        <input type="password" name="password" placeholder="رمز عبور" class="text">
+                        <select name="course" id="month-select">
+                            <option value="0">درس معلم را انتخاب کنید ...</option>
+                            <option value="فیزیک" {% if selected_course == 'فیزیک' %}selected{% endif %}>فیزیک</option>
+                            <option value="شیمی" {% if selected_course == 'شیمی' %}selected{% endif %}>شیمی</option>
+                            <option value="زیست" {% if selected_course == 'زیست' %}selected{% endif %}>زیست</option>
+                            <option value="ریاضی" {% if selected_course == 'ریاضی' %}selected{% endif %}>ریاضی</option>
+                            <option value="ادبیات" {% if selected_course == 'ادبیات' %}selected{% endif %}>ادبیات</option>
+                            <option value="املا" {% if selected_course == 'املا' %}selected{% endif %}>املا</option>
+                            <option value="نگارش" {% if selected_course == 'نگارش' %}selected{% endif %}>نگارش</option>
+                            <option value="انگلیسی" {% if selected_course == 'انگلیسی' %}selected{% endif %}>انگلیسی</option>
+                            <option value="عربی" {% if selected_course == 'عربی' %}selected{% endif %}>عربی</option>
+                            <option value="قرآن" {% if selected_course == 'قرآن' %}selected{% endif %}>قرآن</option>
+                            <option value="معارف" {% if selected_course == 'معارف' %}selected{% endif %}>معارف</option>
+                            <option value="کار و فن" {% if selected_course == 'کار و فن' %}selected{% endif %}>کار و فن</option>
+                            <option value="رایانه" {% if selected_course == 'رایانه' %}selected{% endif %}>رایانه</option>
+                            <option value="مطالعات" {% if selected_course == 'مطالعات' %}selected{% endif %}>مطالعات</option>
+                            <option value="تفکر" {% if selected_course == 'تفکر' %}selected{% endif %}>تفکر</option>
+                            <option value="فرهنگ و هنر" {% if selected_course == 'فرهنگ و هنر' %}selected{% endif %}>فرهنگ و هنر</option>
+                            <option value="ورزش" {% if selected_course == 'ورزش' %}selected{% endif %}>ورزش</option>
+                        </select>
+                        <input type="number" name="phone_number" placeholder="شماره تلفن" class="text">
+                        <input type="file" name="photo" id="fileUpload" class="custom-file-upload">
+                        <button class="btn btn-kordiborazjan_net" type="submit">ثبت معلم</button>
+                    </form>
+                </div>
+
+                <div style="padding-left:140px;"></div>
+
+                <div class="col-4 bg-white">
+                    <p class="box__title">ایجاد معلم هشتم دو</p>
+                    <form action="{% url 'Add Teacher Eight Two' %}" method="post" enctype="multipart/form-data" class="padding-30">
+                        {% csrf_token %}
+                        <input type="text" name="name" placeholder="نام و نام خانوادگی" class="text">
+                        <input type="number" name="username" placeholder="نام کاربری" class="text">
+                        <input type="password" name="password" placeholder="رمز عبور" class="text">
+                        <select name="course" id="month-select">
+                            <option value="0">درس معلم را انتخاب کنید ...</option>
+                            <option value="فیزیک" {% if selected_course == 'فیزیک' %}selected{% endif %}>فیزیک</option>
+                            <option value="شیمی" {% if selected_course == 'شیمی' %}selected{% endif %}>شیمی</option>
+                            <option value="زیست" {% if selected_course == 'زیست' %}selected{% endif %}>زیست</option>
+                            <option value="ریاضی" {% if selected_course == 'ریاضی' %}selected{% endif %}>ریاضی</option>
+                            <option value="ادبیات" {% if selected_course == 'ادبیات' %}selected{% endif %}>ادبیات</option>
+                            <option value="املا" {% if selected_course == 'املا' %}selected{% endif %}>املا</option>
+                            <option value="نگارش" {% if selected_course == 'نگارش' %}selected{% endif %}>نگارش</option>
+                            <option value="انگلیسی" {% if selected_course == 'انگلیسی' %}selected{% endif %}>انگلیسی</option>
+                            <option value="عربی" {% if selected_course == 'عربی' %}selected{% endif %}>عربی</option>
+                            <option value="قرآن" {% if selected_course == 'قرآن' %}selected{% endif %}>قرآن</option>
+                            <option value="معارف" {% if selected_course == 'معارف' %}selected{% endif %}>معارف</option>
+                            <option value="کار و فن" {% if selected_course == 'کار و فن' %}selected{% endif %}>کار و فن</option>
+                            <option value="رایانه" {% if selected_course == 'رایانه' %}selected{% endif %}>رایانه</option>
+                            <option value="مطالعات" {% if selected_course == 'مطالعات' %}selected{% endif %}>مطالعات</option>
+                            <option value="تفکر" {% if selected_course == 'تفکر' %}selected{% endif %}>تفکر</option>
+                            <option value="فرهنگ و هنر" {% if selected_course == 'فرهنگ و هنر' %}selected{% endif %}>فرهنگ و هنر</option>
+                            <option value="ورزش" {% if selected_course == 'ورزش' %}selected{% endif %}>ورزش</option>
+                        </select>
+                        <input type="number" name="phone_number" placeholder="شماره تلفن" class="text">
+                        <input type="file" name="photo" id="fileUpload" class="custom-file-upload">
+                        <button class="btn btn-kordiborazjan_net" type="submit">ثبت معلم</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content padding-0 categories">
+            <div class="row no-gutters">
+
+                <div style="padding-right:90px;"></div>
+
+                <div class="col-4 bg-white">
+                    <p class="box__title">ایجاد معلم نهم یک</p>
+                    <form action="{% url 'Add Teacher Nine One' %}" method="post" enctype="multipart/form-data" class="padding-30">
+                        {% csrf_token %}
+                        <input type="text" name="name" placeholder="نام و نام خانوادگی" class="text">
+                        <input type="number" name="username" placeholder="نام کاربری" class="text">
+                        <input type="password" name="password" placeholder="رمز عبور" class="text">
+                        <select name="course" id="month-select">
+                            <option value="0">درس معلم را انتخاب کنید ...</option>
+                            <option value="فیزیک" {% if selected_course == 'فیزیک' %}selected{% endif %}>فیزیک</option>
+                            <option value="شیمی" {% if selected_course == 'شیمی' %}selected{% endif %}>شیمی</option>
+                            <option value="زیست" {% if selected_course == 'زیست' %}selected{% endif %}>زیست</option>
+                            <option value="ریاضی" {% if selected_course == 'ریاضی' %}selected{% endif %}>ریاضی</option>
+                            <option value="ادبیات" {% if selected_course == 'ادبیات' %}selected{% endif %}>ادبیات</option>
+                            <option value="املا" {% if selected_course == 'املا' %}selected{% endif %}>املا</option>
+                            <option value="نگارش" {% if selected_course == 'نگارش' %}selected{% endif %}>نگارش</option>
+                            <option value="انگلیسی" {% if selected_course == 'انگلیسی' %}selected{% endif %}>انگلیسی</option>
+                            <option value="عربی" {% if selected_course == 'عربی' %}selected{% endif %}>عربی</option>
+                            <option value="قرآن" {% if selected_course == 'قرآن' %}selected{% endif %}>قرآن</option>
+                            <option value="معارف" {% if selected_course == 'معارف' %}selected{% endif %}>معارف</option>
+                            <option value="کار و فن" {% if selected_course == 'کار و فن' %}selected{% endif %}>کار و فن</option>
+                            <option value="رایانه" {% if selected_course == 'رایانه' %}selected{% endif %}>رایانه</option>
+                            <option value="مطالعات" {% if selected_course == 'مطالعات' %}selected{% endif %}>مطالعات</option>
+                            <option value="آمادگی" {% if selected_course == 'آمادگی' %}selected{% endif %}>آمادگی</option>
+                            <option value="فرهنگ و هنر" {% if selected_course == 'فرهنگ و هنر' %}selected{% endif %}>فرهنگ و هنر</option>
+                            <option value="ورزش" {% if selected_course == 'ورزش' %}selected{% endif %}>ورزش</option>
+                        </select>
+                        <input type="number" name="phone_number" placeholder="شماره تلفن" class="text">
+                        <input type="file" name="photo" id="fileUpload" class="custom-file-upload">
+                        <button class="btn btn-kordiborazjan_net" type="submit">ثبت معلم</button>
+                    </form>
+                </div>
+
+                <div style="padding-left:140px;"></div>
+
+                <div class="col-4 bg-white">
+                    <p class="box__title">ایجاد معلم نهم دو</p>
+                    <form action="{% url 'Add Teacher Nine Two' %}" method="post" enctype="multipart/form-data" class="padding-30">
+                        {% csrf_token %}
+                        <input type="text" name="name" placeholder="نام و نام خانوادگی" class="text">
+                        <input type="number" name="username" placeholder="نام کاربری" class="text">
+                        <input type="password" name="password" placeholder="رمز عبور" class="text">
+                        <select name="course" id="month-select">
+                            <option value="0">درس معلم را انتخاب کنید ...</option>
+                            <option value="فیزیک" {% if selected_course == 'فیزیک' %}selected{% endif %}>فیزیک</option>
+                            <option value="شیمی" {% if selected_course == 'شیمی' %}selected{% endif %}>شیمی</option>
+                            <option value="زیست" {% if selected_course == 'زیست' %}selected{% endif %}>زیست</option>
+                            <option value="ریاضی" {% if selected_course == 'ریاضی' %}selected{% endif %}>ریاضی</option>
+                            <option value="ادبیات" {% if selected_course == 'ادبیات' %}selected{% endif %}>ادبیات</option>
+                            <option value="املا" {% if selected_course == 'املا' %}selected{% endif %}>املا</option>
+                            <option value="نگارش" {% if selected_course == 'نگارش' %}selected{% endif %}>نگارش</option>
+                            <option value="انگلیسی" {% if selected_course == 'انگلیسی' %}selected{% endif %}>انگلیسی</option>
+                            <option value="عربی" {% if selected_course == 'عربی' %}selected{% endif %}>عربی</option>
+                            <option value="قرآن" {% if selected_course == 'قرآن' %}selected{% endif %}>قرآن</option>
+                            <option value="معارف" {% if selected_course == 'معارف' %}selected{% endif %}>معارف</option>
+                            <option value="کار و فن" {% if selected_course == 'کار و فن' %}selected{% endif %}>کار و فن</option>
+                            <option value="رایانه" {% if selected_course == 'رایانه' %}selected{% endif %}>رایانه</option>
+                            <option value="مطالعات" {% if selected_course == 'مطالعات' %}selected{% endif %}>مطالعات</option>
+                            <option value="آمادگی" {% if selected_course == 'آمادگی' %}selected{% endif %}>آمادگی</option>
+                            <option value="فرهنگ و هنر" {% if selected_course == 'فرهنگ و هنر' %}selected{% endif %}>فرهنگ و هنر</option>
+                            <option value="ورزش" {% if selected_course == 'ورزش' %}selected{% endif %}>ورزش</option>
+                        </select>
+                        <input type="number" name="phone_number" placeholder="شماره تلفن" class="text">
+                        <input type="file" name="photo" id="fileUpload" class="custom-file-upload">
+                        <button class="btn btn-kordiborazjan_net" type="submit">ثبت معلم</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static "Static Admin Dashboard/Teacher And Student/js/jquery-3.4.1.min.js" %}"></script>
+    <script src="{% static "Static Admin Dashboard/Teacher And Student/js/js.js" %}"></script>
+    <script src="{% static "Static Admin Dashboard/Teacher And Student/js/tagsInput.js" %}"></script>
+</body>
+
+</html>

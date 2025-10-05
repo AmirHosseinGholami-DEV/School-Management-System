@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0;">
+    <title>پنل ادمین مدرسه زنده یاد کردی</title>
+    <link rel="stylesheet" href="{% static "Static Admin Dashboard/Teacher And Student/css/style.css" %}">
+    <link rel="stylesheet" href="{% static "Static Admin Dashboard/Teacher And Student/css/responsive_991.css" %}" media="(max-width:991px)">
+    <link rel="stylesheet" href="{% static "Static Admin Dashboard/Teacher And Student/css/responsive_768.css" %}" media="(max-width:768px)">
+    <link rel="stylesheet" href="{% static "Static Admin Dashboard/Teacher And Student/css/font.css" %}">
+</head>
+
+<body>
+    <div class="sidebar__nav border-top border-left  ">
+        <span class="bars d-none padding-0-18"></span>
+        <a class="header__logo  d-none"></a>
+        <div class="profile__info border cursor-pointer text-center">
+            {% for user in users %}
+                <div class="avatar__img">
+                    <img src="{{ user.photo.url }}" alt="Profile Picture">
+                </div>
+                <span class="profile__name">{{ user.name }}</span>
+            {% endfor %}
+        </div>
+
+        <ul>
+            <li class="item-li i-users"><a href="{% url "admin_dashboard" %}">دانش آموزان</a></li>
+            <li class="item-li i-users"><a href="{% url "admin_dashboard_teacher_seven_one" %}">معلمان</a></li>
+            <li class="item-li i-users"><a href="{% url "admin_dashboard_staff" %}">کارکنان</a></li>
+            <li class="item-li i-user__inforamtion"><a href="{% url "admin_dashboard_absence_seven_one" %}">حضور و غیاب</a></li>
+            <li class="item-li i-ads is-active"><a href="{% url "admin_dashboard_news" %}">اخبار</a></li>
+            <li class="item-li i-banners"><a href="{% url "admin_dashboard_facilities" %}">امکانات</a></li>
+            <li class="item-li i-comments"><a href="{% url "admin_dashboard_contact" %}">تماس با ما</a></li>
+            <li class="item-li i-dashboard"><a href="{% url "admin_dashboard_service" %}">دوره ها</a></li>
+            <li class="item-li i-transactions"><a href="{% url "admin_dashboard_common" %}">لیست مشترکین</a></li>
+        </ul>
+
+    </div>
+    <div class="content">
+        <div class="header d-flex item-center bg-white width-100 border-bottom padding-12-30">
+            <div class="header__right d-flex flex-grow-1 item-center">
+                <span class="bars"></span>
+            </div>
+            <div class="header__left d-flex flex-end item-center margin-top-2">
+                <div class="notification margin-15">
+                    <div class="dropdown__notification">
+                    </div>
+                </div>
+                <a href="" class="logout" title="خروج"></a>
+            </div>
+        </div>
+        <div class="main-content font-size-13">
+            <div class="tab__box">
+                <div class="tab__items">
+                    <a class="tab__item" href="{% url "admin_dashboard_news" %}">اخبار ها</a>
+                    <a class="tab__item is-active" href="{% url "Add News" %}">افزودن اخبار</a>
+                </div>
+            </div>
+        </div>
+
+        <style>
+            .error-message {
+                background-color: rgb(255, 128, 109);
+                height: 60px;
+                border-radius: 4px;
+                width: 1500px;
+                padding-top: 15px;
+                padding-right: 70px;
+            }
+        </style>
+            
+
+
+
+        {% if news_form.non_field_errors %}
+            {% for error in news_form.non_field_errors %}
+                <span class="error-message">{{ error }}</span>
+            {% endfor %}        
+        {% endif %}
+
+        <div class="main-content">
+            <div class="user-info bg-white padding-30 font-size-13">
+                <form action="{% url 'Add News' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="profile__info border cursor-pointer text-center">
+                        <div class="avatar__img">
+                            <img src="images/pro.jpg" class="avatar___img">
+                            <input type="file" accept="image/*" name="photo" id="fileUpload" class="hidden avatar-img__input">
+                            <input type="file" name="photo" id="fileUpload" class="hidden avatar-img__input">
+                            <div class="v-dialog__container" style="display: block;"></div>
+                            <div class="box__camera default__avatar"></div>
+                        </div>
+                        <span class="News__Titr">عکس را انتخواب کنید</span>
+                    </div>
+                    <input class="text text-right" placeholder="تیتر اخبار" name="subject">
+                    <br>
+                    <textarea class="text" placeholder="توضیحات اخبار را بنویسید" name="description"></textarea>
+                    <br>
+                    <br>
+                    <button class="btn btn-kordiborazjan_net" type="submit">ثبت ااطلاعات اخبار برای کاربران</button>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="{% static "Static Admin Dashboard/Teacher And Student/js/jquery-3.4.1.min.js" %}"></script>
+    <script src="{% static "Static Admin Dashboard/Teacher And Student/js/js.js" %}"></script>
+</body>
+
+</html>

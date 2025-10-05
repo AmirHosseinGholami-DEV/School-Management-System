@@ -1,0 +1,344 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0;">
+    <title>پنل ادمین مدرسه زنده یاد کردی</title>
+    <link rel="stylesheet" href="{% static "Static Admin Dashboard/Teacher And Student/css/style.css" %}">
+    <link rel="stylesheet" href="{% static "Static Admin Dashboard/Teacher And Student/css/responsive_991.css" %}" media="(max-width:991px)">
+    <link rel="stylesheet" href="{% static "Static Admin Dashboard/Teacher And Student/css/responsive_768.css" %}" media="(max-width:768px)">
+    <link rel="stylesheet" href="{% static "Static Admin Dashboard/Teacher And Student/css/font.css" %}">
+</head>
+
+<style>
+    /* استایل های مودال */
+    .modal-overlay {
+        display: none;
+        position: fixed;
+        z-index: 900;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal {
+        display: none;
+        flex-direction: column;
+        direction: rtl;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 360px;
+        background-color: #fefefe;
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        padding: 25px 30px;
+        z-index: 1000;
+        font-family: 'Vazirmatn', sans-serif;
+        animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translate(-50%, -45%); }
+        to { opacity: 1; transform: translate(-50%, -50%); }
+    }
+
+    .modal h3 {
+        font-size: 20px;
+        margin-bottom: 20px;
+        color: #2c3e50;
+        text-align: center;
+    }
+
+    .modal form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .modal input {
+        padding: 10px 12px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 15px;
+        transition: all 0.2s ease-in-out;
+        text-align: right;
+    }
+
+    .modal input:focus {
+        border-color: #3498db;
+        box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+        outline: none;
+    }
+
+    .modal-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+
+    .modal-actions button {
+        flex: 1;
+        padding: 10px 15px;
+        font-size: 15px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin: 0 5px;
+    }
+
+    .save-btn {
+        background-color: #27ae60;
+        color: #fff;
+    }
+
+    .save-btn:hover {
+        background-color: #219150;
+    }
+
+    .cancel-btn {
+        background-color: #e74c3c;
+        color: #fff;
+    }
+
+    .cancel-btn:hover {
+        background-color: #c0392b;
+    }
+
+    /* استایل های جدول */
+    .table__box {
+        margin-top: 20px;
+        overflow-x: auto;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .table th, .table td {
+        padding: 12px 15px;
+        text-align: center;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .table th {
+        background-color: #f5f5f5;
+        font-weight: bold;
+    }
+
+    .table tr:hover {
+        background-color: #f9f9f9;
+    }
+
+    /* استایل های دکمه های عملیات */
+    .item-delete, .item-edit {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        margin: 0 5px;
+        cursor: pointer;
+        transition: opacity 0.3s;
+    }
+
+    .item-delete:hover, .item-edit:hover {
+        opacity: 0.8;
+    }
+
+    /* استایل های تب */
+    .tab__box {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        overflow: hidden;
+    }
+
+    .tab__items {
+        display: flex;
+        flex-wrap: wrap;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .tab__item {
+        padding: 12px 20px;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-decoration: none;
+        color: #555;
+    }
+
+    .tab__item.is-active {
+        color: #3498db;
+        border-bottom: 2px solid #3498db;
+    }
+
+    .tab__item:hover {
+        background-color: #f5f5f5;
+        border-radius: 12px;
+    }
+</style>
+
+<body>
+    <script>
+        function submitDeleteForm(contactId) {
+            var form = document.getElementById('delete-form-' + contactId);
+            form.submit();
+        }
+    </script>
+    <div class="sidebar__nav border-top border-left">
+        <span class="bars d-none padding-0-18"></span>
+        <a class="header__logo  d-none"></a>
+        <div class="profile__info border cursor-pointer text-center">
+            {% for user in users %}
+                <div class="avatar__img">
+                    <img src="{{ user.photo.url }}" alt="Profile Picture">
+                </div>
+                <span class="profile__name">{{ user.name }}</span>
+            {% endfor %}
+        </div>
+
+        <ul>
+            <li class="item-li i-users is-active"><a href="{% url "admin_dashboard" %}">دانش آموزان</a></li>
+            <li class="item-li i-users"><a href="{% url "admin_dashboard_teacher_seven_one" %}">معلمان</a></li>
+            <li class="item-li i-users"><a href="{% url "admin_dashboard_staff" %}">کارکنان</a></li>
+            <li class="item-li i-user__inforamtion"><a href="{% url "admin_dashboard_absence_seven_one" %}">حضور و غیاب</a></li>
+            <li class="item-li i-ads"><a href="{% url "admin_dashboard_news" %}">اخبار</a></li>
+            <li class="item-li i-banners"><a href="{% url "admin_dashboard_facilities" %}">امکانات</a></li>
+            <li class="item-li i-comments"><a href="{% url "admin_dashboard_contact" %}">تماس با ما</a></li>
+            <li class="item-li i-dashboard"><a href="{% url "admin_dashboard_service" %}">دوره ها</a></li>
+            <li class="item-li i-transactions"><a href="{% url "admin_dashboard_common" %}">لیست مشترکین</a></li>
+
+    </div>
+    <div class="content">
+        <div class="header d-flex item-center bg-white width-100 border-bottom padding-12-30">
+            <div class="header__right d-flex flex-grow-1 item-center">
+                <span class="bars"></span>
+            </div>
+            <div class="header__left d-flex flex-end item-center margin-top-2">
+                <a href="{% url "Home Page" %}" class="logout" title="خروج"></a>
+            </div>
+        </div>
+        <div class="main-content font-size-13">
+            <div class="tab__box">
+                <div class="tab__items">
+                    <a class="tab__item" href="{% url "admin_dashboard" %}">هفتم یک</a>
+                    <a class="tab__item" href="{% url "admin_dashboard_seven_two" %}">هفتم دو</a>
+                    <a class="tab__item" href="{% url "admin_dashboard_eight_one" %}">هشتم یک</a>
+                    <a class="tab__item" href="{% url "admin_dashboard_eight_two" %}">هشتم دو</a>
+                    <a class="tab__item" href="{% url "admin_dashboard_nine_one" %}">نهم یک</a>
+                    <a class="tab__item is-active" href="{% url "admin_dashboard_nine_two" %}">نهم دو</a>
+                    <a class="tab__item" href="{% url "Add Student" %}">افزودن دانش آموز ...</a>
+                </div>
+            </div>
+            <div class="table__box">
+                <table class="table">
+                    <thead role="rowgroup">
+                        <tr role="row" class="title-row">
+                            <th>شماره کلاسی</th>
+                            <th>عکس</th>
+                            <th>نام و نام خانوادگی</th>
+                            <th>نام پدر</th>
+                            <th>نام کاربری</th>
+                            <th>رمز عبور</th>
+                            <th>شماره تلفن پدر</th>
+                            <th>شماره تلفن مادر</th>
+                            <th>عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if students_nine_two %}
+                            {% for student in students_nine_two %}
+                                <tr role="row" class="">
+                                    <td>{{ student.class_number }}</td>
+                                    <td>
+                                        {% if student.photo %}
+                                            <img src="{{ student.photo.url }}" alt="{{ student.name }}" style="border-radius: 6px; width: 70px; height: 70px;">
+                                        {% else %}
+                                            <img src="/static/images/default-student-photo.jpg" alt="No photo available" style="border-radius: 6px; width: 70px; height: 70px;">
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ student.name }}</td>
+                                    <td>{{ student.father_name }}</td>
+                                    <td>{{ student.username }}</td>
+                                    <td>{{ student.password }}</td>
+                                    <td>{{ student.father_Phone }}</td>
+                                    <td>{{ student.Mother_Phone }}</td>
+                                    <td class="">
+                                        <form id="delete-form-{{ student.id }}" action="{% url 'delete_student_nine_two' student.id %}" method="post" style="display:none;">
+                                            {% csrf_token %}
+                                        </form>
+                                        <a href="javascript:void(0);" onclick="submitDeleteForm({{ student.id }});" class="item-delete mlg-15" title="حذف"></a>   
+
+                                        <a href="javascript:void(0);" onclick="toggleEditForm({{ student.id }});" class="item-edit" title="ویرایش"></a>
+                                        <div id="edit-modal-{{ student.id }}" class="modal">
+                                            <form method="post" enctype="multipart/form-data" action="{% url 'update_student_nine_two' student.id %}">
+                                                {% csrf_token %}
+                                                <h3 style="font-family: Vazir;">ویرایش اطلاعات دانش‌ آموز</h3>
+                                                <img src="{{ student.photo.url }}" alt="تصویر دانش آموز" style="width: 100px; height: 100px; border-radius: 10px; margin-bottom: 10px;">
+                                                <input type="file" name="photo" accept="image/*">
+                                                <input type="text" name="class_number" value="{{ student.class_number }}" placeholder="شماره کلاسی">
+                                                <input type="text" name="name" value="{{ student.name }}" placeholder="نام و نام خانوادگی">
+                                                <input type="text" name="father_name" value="{{ student.father_name }}" placeholder="نام پدر">
+                                                <input type="text" name="username" value="{{ student.username }}" placeholder="نام کاربری">
+                                                <input type="text" name="password" value="{{ student.password }}" placeholder="رمز عبور">
+                                                <input type="text" name="father_Phone" value="{{ student.father_Phone }}" placeholder="شماره تلفن پدر">
+                                                <input type="text" name="Mother_Phone" value="{{ student.Mother_Phone }}" placeholder="شماره تلفن مادر">
+
+                                                <div class="modal-actions">
+                                                    <button type="submit" class="save-btn">ذخیره</button>
+                                                    <button type="button" onclick="closeEditModal({{ student.id }})" class="cancel-btn">بستن</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </td>
+                                    <script>
+                                        // تابع نمایش فرم ویرایش
+                                        function toggleEditForm(studentId) {
+                                            document.getElementById('edit-modal-' + studentId).style.display = 'block';
+                                            document.getElementById('modal-overlay-' + studentId).style.display = 'block';
+                                        }
+                                        
+                                        // تابع بستن مودال ویرایش
+                                        function closeEditModal(studentId) {
+                                            document.getElementById('edit-modal-' + studentId).style.display = 'none';
+                                            document.getElementById('modal-overlay-' + studentId).style.display = 'none';
+                                        }
+                                        
+                                        // تابع ارسال فرم حذف
+                                        function submitDeleteForm(contactId) {
+                                            var form = document.getElementById('delete-form-' + contactId);
+                                            form.submit();
+                                        }
+                                        
+                                        // تابع کپی متن
+                                        function copyText(element) {
+                                            const textToCopy = element.innerText;
+                                            navigator.clipboard.writeText(textToCopy).then(function() {
+                                                alert('متن کپی شد: ' + textToCopy);
+                                            });
+                                        }
+                                    </script>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="9" style="text-align: center;">دانش آموزی درسیستم هوشمند ثبت نشده است...</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static "Static Admin Dashboard/Teacher And Student/js/jquery-3.4.1.min.js" %}"></script>
+    <script src="{% static "Static Admin Dashboard/Teacher And Student/js/js.js" %}"></script>
+</body>
+
+</html>

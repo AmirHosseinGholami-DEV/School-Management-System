@@ -1,0 +1,144 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0;">
+    {% if teacher %}
+        <title>پنل ادمین {{ teacher.name }}</title>
+    {% endif %}
+    <link rel="stylesheet" href="{% static "Static Teacher/css/style.css" %}">
+    <link rel="stylesheet" href="{% static "Static Teacher/css/responsive_991.css" %}" media="(max-width:991px)">
+    <link rel="stylesheet" href="{% static "Static Teacher/css/responsive_768.css" %}" media="(max-width:768px)">
+    <link rel="stylesheet" href="{% static "Static Teacher/css/font.css" %}">
+</head>
+
+<body>
+    <script>
+        function submitDeleteForm(studentId) {
+            const form = document.getElementById('delete-form-' + studentId);
+            if (form) {
+                form.submit();
+            }
+        }
+    </script>
+    <div class="sidebar__nav border-top border-left  ">
+        <span class="bars d-none padding-0-18"></span>
+        <div class="profile__info border cursor-pointer text-center">
+            {% if teacher %}
+                <div class="avatar__img">
+                    {% if teacher.photo %}
+                        <img src="{{ teacher.photo.url }}" alt="Profile Photo">
+                    {% else %}
+                        <p>عکس موجود نیست</p>
+                    {% endif %}
+                </div>
+                <span class="profile__name">{{ teacher.name }}</span>
+            {% else %}
+                <p>اطلاعات معلم وجود ندارد</p>
+            {% endif %}
+        </div>
+
+
+        <ul>
+            <li class="item-li i-categories"><a href="{% url "teacher" %}">نمرات</a></li>
+            <li class="item-li i-user__inforamtion is-active"><a href="{% url "teacher_absence" %}">حضور و غیاب</a></li>
+            <li class="item-li i-users"><a href="{% url "Change Page Teacher" %}">تغییر اطلاعات</a></li>
+        </ul>
+
+    </div>
+    <div class="content">
+        <div class="header d-flex item-center bg-white width-100 border-bottom padding-12-30">
+            <div class="header__right d-flex flex-grow-1 item-center">
+                <span class="bars"></span>
+            </div>
+            <div class="header__left d-flex flex-end item-center margin-top-2">
+                <a href="{% url "Home Page" %}" class="logout" title="خروج"></a>
+            </div>
+        </div>
+        <div class="breadcrumb">
+        </div>
+        <div class="main-content padding-0 categories">
+            <div class="row no-gutters  ">
+                <div class="col-8 margin-left-10 margin-bottom-15 border-radius-3">
+                    <p class="box__title">لیست حضور غیاب ها</p>
+                    <div class="table__box">
+                        <table class="table">
+                            <thead role="rowgroup">
+                                <tr role="row" class="title-row">
+                                    <th>ردیف</th>
+                                    <th>نام دانش آموز</th>
+                                    <th>روز هفته</th>
+                                    <th>تاریخ شمسی</th>
+                                    <th>درس</th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if course_records %}
+                                    {% for student in course_records %}
+                                        <tr role="row">
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{ student.name }}</td>
+                                            <td>{{ student.day }}</td>
+                                            <td>{{ student.shamsi_date }}</td>
+                                            <td>{{ student.lessone }}</td>
+                                            <td class="">
+                                                <form id="delete-form-{{ student.id }}" action="{% url 'delete_absence' student.id selected_class %}" method="post" style="display:none;">
+                                                    {% csrf_token %}
+                                                </form>
+                                                <a href="javascript:void(0);" onclick="submitDeleteForm('{{ student.id }}');" class="item-delete mlg-15" title="حذف"></a>   
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="4">هیچ دانش‌آموزی ثبت نشده است.</td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                </div>
+                <div class="col-4 bg-white">
+                    <p class="box__title">ایجاد حضور و غیاب جدید</p>
+                    <form action="" method="post" class="padding-30">
+                        {% csrf_token %}
+                        <select name="class" id="class-select" onchange="this.form.submit()">
+                            <option value="">پایه مورد نظر را انتخاب کنید ...</option>
+                            {% for class in classes %}
+                                <option value="{{ class }}" {% if class == request.POST.class %}selected{% endif %}>{{ class }}</option>
+                            {% endfor %}
+                        </select>
+                    
+                        <select name="student" id="student-select">
+                            <option value="">نام دانش آموز را انتخاب کنید ...</option>
+                            {% for student in students %}
+                                <option value="{{ student.name }}">{{ student.name }}</option>
+                            {% endfor %}
+                        </select>
+                    
+                        <select name="day" id="month-select">
+                            <option value="0"> روز را انتخاب کنید ...</option>
+                            <option value="شنبه" {% if request.POST.day == 'شنبه' %}selected{% endif %}>شنبه</option>
+                            <option value="یکشنبه" {% if request.POST.day == 'یکشنبه' %}selected{% endif %}>یکشنبه</option>
+                            <option value="دوشنبه" {% if request.POST.day == 'دوشنبه' %}selected{% endif %}>دوشنبه</option>
+                            <option value="سه شنبه" {% if request.POST.day == 'سه شنبه' %}selected{% endif %}>سه شنبه</option>
+                            <option value="چهارشنبه" {% if request.POST.day == 'چهارشنبه' %}selected{% endif %}>چهارشنبه</option>
+                        </select>
+            
+                        <button class="btn btn-kordiborazjan_net">اضافه کردن</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static "Static Teacher/js/jquery-3.4.1.min.js" %}"></script>
+    <script src="{% static "Static Teacher/js/js.js" %}"></script>
+    <script src="{% static "Static Teacher/js/tagsInput.js" %}"></script>
+</body>
+
+</html>

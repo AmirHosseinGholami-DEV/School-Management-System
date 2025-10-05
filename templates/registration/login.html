@@ -1,0 +1,104 @@
+{% load static %}
+<html lang="en">
+
+<head>
+    <!-- Meta -->
+    <meta charset="UTF-8">
+    <meta name="description"
+        content="استعداد های درخشان زنده یاد کردی یک مدرسه تیزهوشان هست که در برازجان هست و بهترین مدرسه استان بوشهر است و با کادر آموزشی بسیار مجرب است">
+    <meta name="keywords" content="برازجان، زنده یاد کردی، تیزهوشان، استعداد های درخشان، امیر حسین غلامی، مدرسه کردی">
+    <meta name="author" content="امیر حسین غلامی">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="canonical" href="https://kordiborazjan.ir" />
+    <link rel="alternate" href="https://kordiborazjan.ir" hreflang="fa-ir" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta property="og:url" content="https://kordiborazjan.ir">
+    <meta property="og:image" content="https://kordiborazjan.ir/static/Static%20Home/images/Logo.png">
+
+    <!-- Mobile Specific -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Title -->
+    <title>استعداد های درخشان زنده یاد کردی</title>
+
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" href="{% static "Static Home/images/Sampad.svg" %}">
+
+    <link rel="stylesheet" href="{% static "Static Login/css/bootstrap.rtl.min.css" %}">
+
+    <link rel="stylesheet" href="{% static "Static Login/css/feather.css" %}">
+
+    <link rel="stylesheet" href="{% static "Static Login/css/flags.css" %}">
+
+    <link rel="stylesheet" href="{% static "Static Login/css/fontawesome.min.css" %}">
+    <link rel="stylesheet" href="{% static "Static Login/css/all.min.css" %}">
+
+    <link rel="stylesheet" href="{% static "Static Login/css/style.css" %}">
+</head>
+
+<body>
+
+    <div class="main-wrapper login-body">
+        <div class="login-wrapper">
+            <div class="container">
+                <div class="loginbox">
+                    <div class="login-left">
+                        <img class="img-fluid" src="{% static "Static Login/images/Logo.png" %}" alt="Logo">
+                    </div>
+                    <div class="login-right">
+                        <div class="login-right-wrap" dir="rtl">
+
+                            <p class="account-subtitle" style="font-family: IRANSansWeb;"></p>
+                            <h2 style="font-family: B Homa;">استعداد های درخشان زنده یاد کردی</h2>
+                            {% if messages %}
+                                <ul>
+                                    {% for message in messages %}
+                                        <label style="font-family: IRANSansWeb; color: red;">{{ message }}</label>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label style="font-family: IRANSansWeb;">نام کاربری<span class="login-danger">*</span></label>
+                                    <input class="form-control" type="text" name="username" style="font-family: IRANSansWeb;">
+                                    <span class="profile-views"><i class="fas fa-user-circle"></i></span>
+                                </div>
+                                <div class="form-group">
+                                    <label style="font-family: IRANSansWeb;">رمز عبور<span class="login-danger">*</span></label>
+                                    <input class="form-control pass-input" type="text" name="password" style="font-family: IRANSansWeb;">
+                                    <span class="profile-views feather-eye toggle-password"></span>
+                                </div>
+                                <div class="forgotpass">
+                                    <div class="remember-me">
+                                        <label class="custom_check mr-2 mb-0 d-inline-flex remember-me" style="font-family: IRANSansWeb;"> من را بیاد داشته باش
+                                            <input type="checkbox" name="radio">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary btn-block" type="submit" style="font-family: IRANSansWeb;">ورود</button>
+                                </div>
+                            </form>
+                            <p class="account-subtitle" style="font-family: IRANSansWeb; margin-left: 60px;" dir="rtl">آیا حساب کاربری ندارید؟ <a href="{% url 'signup' %}">ثبت نام</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="{% static "Static Login/js/jquery-3.7.1.min.js" %}" type="34eb6b72e9ca29734f23eb44-text/javascript"></script>
+
+    <script src="{% static "Static Login/js/bootstrap.bundle.min.js" %}" type="34eb6b72e9ca29734f23eb44-text/javascript"></script>
+
+    <script src="{% static "Static Login/js/feather.min.js" %}" type="34eb6b72e9ca29734f23eb44-text/javascript"></script>
+
+    <script src="{% static "Static Login/js/script.js" %}" type="34eb6b72e9ca29734f23eb44-text/javascript"></script>
+    <script src="{% static "Static Login/js/rocket-loader.min.js" %}" data-cf-settings="34eb6b72e9ca29734f23eb44-|49" defer=""></script>
+</body>
+
+</html>

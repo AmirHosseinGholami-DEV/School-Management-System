@@ -1,0 +1,255 @@
+{% load static %}
+<html lang="en">
+
+<head>
+    <!-- Meta -->
+    <meta charset="UTF-8">
+    <meta name="description"
+        content="استعداد های درخشان زنده یاد کردی یک مدرسه تیزهوشان هست که در برازجان هست و بهترین مدرسه استان بوشهر است و با کادر آموزشی بسیار مجرب است">
+    <meta name="keywords" content="برازجان، زنده یاد کردی، تیزهوشان، استعداد های درخشان، امیر حسین غلامی، مدرسه کردی">
+    <meta name="author" content="امیر حسین غلامی">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="canonical" href="https://kordiborazjan.ir" />
+    <link rel="alternate" href="https://kordiborazjan.ir" hreflang="fa-ir" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta property="og:url" content="https://kordiborazjan.ir">
+    <meta property="og:image" content="https://kordiborazjan.ir/static/Static%20Home/images/Logo.png">
+
+    <!-- Mobile Specific -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Title -->
+    <title>استعداد های درخشان زنده یاد کردی</title>
+
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" href="{% static "Static Home/images/Sampad.svg" %}">
+
+    <link rel="stylesheet" href="{% static "Static Login/css/bootstrap.rtl.min.css" %}">
+
+    <link rel="stylesheet" href="{% static "Static Login/css/feather.css" %}">
+
+    <link rel="stylesheet" href="{% static "Static Login/css/flags.css" %}">
+
+    <link rel="stylesheet" href="{% static "Static Login/css/fontawesome.min.css" %}">
+    <link rel="stylesheet" href="{% static "Static Login/css/all.min.css" %}">
+
+    <link rel="stylesheet" href="{% static "Static Login/css/style.css" %}">
+    <style>
+        .step {
+            display: none;
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+    
+        .step.active {
+            display: block;
+            opacity: 1;
+            transform: translateX(0);
+        }
+    
+        .step.fade-out {
+            opacity: 0 !important;
+            transform: translateX(-50px) !important;
+        }
+    
+        .buttons {
+            margin-top: 20px;
+        }
+    
+        .buttons button {
+            margin: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="main-wrapper login-body">
+        <div class="login-wrapper">
+            <div class="container">
+                <div class="loginbox">
+                    <div class="login-left">
+                        <img class="img-fluid" src="{% static "Static Login/images/Logo.png" %}" alt="Logo">
+                    </div>
+                    <div class="login-right">
+                        <div class="login-right-wrap" dir="rtl">
+
+                            <p class="account-subtitle" style="font-family: IRANSansWeb;"></p>
+                            <h2 style="font-family: B Homa;">فرم ثبت نام دانش آموزان</h2>
+
+                            {% if form.errors %}
+                                <ul>
+                                    {% for field in form %}
+                                        {% for error in field.errors %}
+                                            <li style="color:red;">{{ field.label }}: {{ error }}</li>
+                                        {% endfor %}
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+
+                            <form action="{% url 'signup' %}" id="regForm" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                
+                                <!-- مرحله ۱: انتخاب پایه -->
+                                <div class="step active" data-step="0">
+                                    <div class="form-group">
+                                        <label style="font-family: IRANSansWeb;">پایه و بخش<span class="login-danger">*</span></label>
+                                        <select style="font-family: IRANSansWeb;" class="form-control" name="student_class" required>
+                                            <option value="" style="font-family: IRANSansWeb;">-- انتخاب کنید --</option>
+                                            <option value="seven_one" style="font-family: IRANSansWeb;">پایه هفتم یک</option>
+                                            <option value="seven_two" style="font-family: IRANSansWeb;">پایه هفتم دو</option>
+                                            <option value="eight_one" style="font-family: IRANSansWeb;">پایه هشتم یک</option>
+                                            <option value="eight_two" style="font-family: IRANSansWeb;">پایه هشتم دو</option>
+                                            <option value="nine_one" style="font-family: IRANSansWeb;">پایه نهم یک</option>
+                                            <option value="nine_two" style="font-family: IRANSansWeb;">پایه نهم دو</option>
+                                        </select>
+                                    </div>
+                            
+                                    <!-- فیلد شماره کلاس -->
+                                    <div class="form-group">
+                                        <label style="font-family: IRANSansWeb;">شماره کلاسی<span class="login-danger">*</span></label>
+                                        <input style="font-family: IRANSansWeb;" class="form-control" type="text" name="class_number" required>
+                                    </div>
+                            
+                                    <div class="form-group">
+                                        <button type="button" id="next0" class="btn btn-primary btn-block" style="font-family: IRANSansWeb;">بعدی</button>
+                                    </div>
+                                </div>
+                            
+                                <!-- مرحله ۲ -->
+                                <div class="step" data-step="1">
+                                    <div class="form-group">
+                                        <label style="font-family: IRANSansWeb;">نام کاربری<span class="login-danger">*</span></label>
+                                        <input class="form-control" type="text" name="username" style="font-family: IRANSansWeb;" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-secondary" data-prev="0" style="font-family: IRANSansWeb;">قبلی</button>
+                                        <button type="button" class="btn btn-primary" data-next="2" style="font-family: IRANSansWeb;">بعدی</button>
+                                    </div>
+                                </div>
+                            
+                                <!-- ادامه مراحل بدون تغییر -->
+                            
+                                <div class="step" data-step="2">
+                                    <div class="form-group">
+                                        <label style="font-family: IRANSansWeb;">رمز عبور<span class="login-danger">*</span></label>
+                                        <input class="form-control" type="password" name="password" style="font-family: IRANSansWeb;" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-secondary" data-prev="1" style="font-family: IRANSansWeb;">قبلی</button>
+                                        <button type="button" class="btn btn-primary" data-next="3" style="font-family: IRANSansWeb;">بعدی</button>
+                                    </div>
+                                </div>
+                            
+                                <div class="step" data-step="3">
+                                    <div class="form-group">
+                                        <label style="font-family: IRANSansWeb;">نام پدر<span class="login-danger">*</span></label>
+                                        <input class="form-control" type="text" name="father_name" style="font-family: IRANSansWeb;" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-secondary" data-prev="2" style="font-family: IRANSansWeb;">قبلی</button>
+                                        <button type="button" class="btn btn-primary" data-next="4" style="font-family: IRANSansWeb;">بعدی</button>
+                                    </div>
+                                </div>
+                            
+                                <div class="step" data-step="4">
+                                    <div class="form-group">
+                                        <label style="font-family: IRANSansWeb;">تلفن پدر<span class="login-danger">*</span></label>
+                                        <input class="form-control" type="text" name="father_Phone" style="font-family: IRANSansWeb;" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-secondary" data-prev="3" style="font-family: IRANSansWeb;">قبلی</button>
+                                        <button type="button" class="btn btn-primary" data-next="5" style="font-family: IRANSansWeb;">بعدی</button>
+                                    </div>
+                                </div>
+                            
+                                <div class="step" data-step="5">
+                                    <div class="form-group">
+                                        <label style="font-family: IRANSansWeb;">تلفن مادر<span class="login-danger">*</span></label>
+                                        <input class="form-control" type="text" name="Mother_Phone" style="font-family: IRANSansWeb;" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-secondary" data-prev="4" style="font-family: IRANSansWeb;">قبلی</button>
+                                        <button type="button" class="btn btn-primary" data-next="6" style="font-family: IRANSansWeb;">بعدی</button>
+                                    </div>
+                                </div>
+                            
+                                <div class="step" data-step="6">
+                                    <div class="form-group">
+                                        <label style="font-family: IRANSansWeb;">تاریخ تولد<span class="login-danger">*</span></label>
+                                        <input class="form-control" type="text" name="born" style="font-family: IRANSansWeb;" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-secondary" data-prev="5" style="font-family: IRANSansWeb;">قبلی</button>
+                                        <button type="button" class="btn btn-primary" data-next="7" style="font-family: IRANSansWeb;">بعدی</button>
+                                    </div>
+                                </div>
+                            
+                                <div class="step" data-step="7">
+                                    <div class="form-group">
+                                        <label style="font-family: IRANSansWeb;">نام<span class="login-danger">*</span></label>
+                                        <input class="form-control" type="text" name="name" style="font-family: IRANSansWeb;" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-secondary" data-prev="6" style="font-family: IRANSansWeb;">قبلی</button>
+                                        <button type="button" class="btn btn-primary" data-next="8" style="font-family: IRANSansWeb;">بعدی</button>
+                                    </div>
+                                </div>
+                            
+                                <div class="step" data-step="8">
+                                    <div class="form-group">
+                                        <label style="font-family: IRANSansWeb;">عکس<span class="login-danger">*</span></label>
+                                        <input class="form-control" type="file" name="photo" accept="image/*" style="font-family: IRANSansWeb;" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-secondary" data-prev="7" style="font-family: IRANSansWeb; margin-bottom: 20px;">قبلی</button>
+                                        <button class="btn btn-primary btn-block" type="submit" style="font-family: IRANSansWeb;">ثبت نهایی</button>
+                                    </div>
+                                </div>
+                            </form>
+                            
+                            <p class="account-subtitle" style="font-family: IRANSansWeb; margin-left: 60px;" dir="rtl">آیا حساب کاربری دارید؟ <a href="{% url 'login' %}">ورود</a></p>
+                            
+                            <script>
+                                const steps = document.querySelectorAll('.step');
+                                function showStep(idx) {
+                                    steps.forEach(s => s.classList.remove('active'));
+                                    document.querySelector(`.step[data-step="${idx}"]`).classList.add('active');
+                                }
+                            
+                                document.getElementById('next0').onclick = () => {
+                                    const sel = document.querySelector('[name="student_class"]');
+                                    const classNum = document.querySelector('[name="class_number"]');
+                                    if (!sel.value) {
+                                        alert('ابتدا پایه را انتخاب کنید');
+                                    } else if (!classNum.value.trim()) {
+                                        alert('لطفاً شماره کلاس را وارد کنید');
+                                    } else {
+                                        showStep(1);
+                                    }
+                                };
+                            
+                                document.querySelectorAll('[data-next]').forEach(btn => {
+                                    btn.onclick = e => showStep(e.target.getAttribute('data-next'));
+                                });
+                            
+                                document.querySelectorAll('[data-prev]').forEach(btn => {
+                                    btn.onclick = e => showStep(e.target.getAttribute('data-prev'));
+                                });
+                            </script>                                                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static "Static Login/js/jquery-3.7.1.min.js" %}" type="34eb6b72e9ca29734f23eb44-text/javascript"></script>
+    <script src="{% static "Static Login/js/bootstrap.bundle.min.js" %}" type="34eb6b72e9ca29734f23eb44-text/javascript"></script>
+    <script src="{% static "Static Login/js/feather.min.js" %}" type="34eb6b72e9ca29734f23eb44-text/javascript"></script>
+    <script src="{% static "Static Login/js/script.js" %}" type="34eb6b72e9ca29734f23eb44-text/javascript"></script>
+    <script src="{% static "Static Login/js/rocket-loader.min.js" %}" data-cf-settings="34eb6b72e9ca29734f23eb44-|49" defer=""></script>
+</body>
+
+</html>

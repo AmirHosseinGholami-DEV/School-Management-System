@@ -1,0 +1,124 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0;">
+    <title>پنل ادمین مدرسه زنده یاد کردی</title>
+    <link rel="stylesheet" href="{% static "Static Admin Dashboard/Teacher And Student/css/style.css" %}">
+    <link rel="stylesheet" href="{% static "Static Admin Dashboard/Teacher And Student/css/responsive_991.css" %}" media="(max-width:991px)">
+    <link rel="stylesheet" href="{% static "Static Admin Dashboard/Teacher And Student/css/responsive_768.css" %}" media="(max-width:768px)">
+    <link rel="stylesheet" href="{% static "Static Admin Dashboard/Teacher And Student/css/font.css" %}">
+</head>
+
+<body>
+    <div class="sidebar__nav border-top border-left  ">
+        <span class="bars d-none padding-0-18"></span>
+        <a class="header__logo  d-none"></a>
+        <div class="profile__info border cursor-pointer text-center">
+            {% if teacher %}
+                <div class="avatar__img">
+                    <img src="{{ teacher.photo.url }}" alt="Profile Picture">
+                </div>
+                <span class="profile__name">{{ teacher.name }}</span>
+            {% else %}
+                <p>کاربر مورد نظر یافت نشد.</p>
+            {% endif %}
+        </div>
+
+        <ul>
+            <li class="item-li i-categories"><a href="{% url "teacher" %}">نمرات</a></li>
+            <li class="item-li i-user__inforamtion"><a href="{% url "teacher_absence" %}">حضور و غیاب</a></li>
+            <li class="item-li i-users is-active"><a href="{% url "Change Page Teacher" %}">تغییر اطلاعات</a></li>
+        </ul>
+
+    </div>
+    <div class="content">
+        <div class="header d-flex item-center bg-white width-100 border-bottom padding-12-30">
+            <div class="header__right d-flex flex-grow-1 item-center">
+                <span class="bars"></span>
+            </div>
+            <div class="header__left d-flex flex-end item-center margin-top-2">
+                <div class="notification margin-15">
+                    <div class="dropdown__notification">
+                    </div>
+                </div>
+                <a href="{% url "Home Page" %}" class="logout" title="خروج"></a>
+            </div>
+        </div>
+        <div class="main-content font-size-13">
+            <div class="tab__box">
+                <div class="tab__items">
+                    <a class="tab__item is-active" href="{% url "Change Page Teacher" %}">تغییر اطلاعات</a>
+                </div>
+            </div>
+        </div>
+
+        <style>
+            .error-message {
+                background-color: rgb(255, 128, 109);
+                height: 60px;
+                border-radius: 4px;
+                width: 1500px;
+                padding-top: 15px;
+                padding-right: 70px;
+            }
+        </style>
+            
+
+
+
+        {% if news_form.non_field_errors %}
+            {% for error in news_form.non_field_errors %}
+                <span class="error-message">{{ error }}</span>
+            {% endfor %}        
+        {% endif %}
+
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li class="message">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+
+        <div class="main-content">
+            <div class="user-info bg-white padding-30 font-size-13">
+                <form action="{% url 'Change Page Teacher' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="profile__info border cursor-pointer text-center">
+                        <div class="avatar__img">
+                            {% if teacher %}
+                                {% if teacher.photo %}
+                                    <img src="{{ teacher.photo.url }}" alt="Profile Picture" class="avatar___img">
+                                {% else %}
+                                    <p>عکس انتخاب نشده است.</p>
+                                {% endif %}
+                                <input type="file" accept="image/*" name="photo" id="fileUpload" class="avatar-img__input">
+                            {% else %}
+                                <p>کاربر مورد نظر یافت نشد.</p>
+                            {% endif %}
+                        </div>
+                        <span class="News__Titr">عکس را انتخاب کنید</span>
+                    </div>
+                    <input class="text text-right" placeholder="نام کاربری شما:{{ teacher.username }}می باشد" type="" name="username">
+
+                    <br>
+                    
+                    <input class="text text-right" placeholder="رمز عبور شما:{{ teacher.password }}می باشد" type="" name="password">
+                    <br><br>
+                    
+                    <button class="btn btn-kordiborazjan_net" type="submit">تغییر اطلاعات کاربر</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="{% static "Static Admin Dashboard/Teacher And Student/js/jquery-3.4.1.min.js" %}"></script>
+    <script src="{% static "Static Admin Dashboard/Teacher And Student/js/js.js" %}"></script>
+</body>
+
+</html>

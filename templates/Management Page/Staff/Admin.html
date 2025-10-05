@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0;">
+    <title>پنل ادمین مدرسه زنده یاد کردی</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" href="{% static "Static Home/images/Sampad.svg" %}">
+    <link rel="stylesheet" href="{% static "Static Admin Dashboard/Teacher And Student/css/style.css" %}">
+    <link rel="stylesheet" href="{% static "Static Admin Dashboard/Teacher And Student/css/responsive_991.css" %}" media="(max-width:991px)">
+    <link rel="stylesheet" href="{% static "Static Admin Dashboard/Teacher And Student/css/responsive_768.css" %}" media="(max-width:768px)">
+    <link rel="stylesheet" href="{% static "Static Admin Dashboard/Teacher And Student/css/font.css" %}">
+</head>
+
+<body>
+    <script>
+        function submitDeleteForm(contactId) {
+            var form = document.getElementById('delete-form-' + contactId);
+            form.submit();
+        }
+    </script>
+    <div class="sidebar__nav border-top border-left">
+        <span class="bars d-none padding-0-18"></span>
+        <a class="header__logo  d-none"></a>
+        <div class="profile__info border cursor-pointer text-center">
+            {% if staff %}
+                <div class="avatar__img">
+                    {% if staff.photo %}
+                        <img src="{{ staff.photo.url }}" alt="Profile Photo">
+                    {% else %}
+                        <p>عکس موجود نیست</p>
+                    {% endif %}
+                </div>
+                <span class="profile__name">{{ staff.name }}</span>
+            {% else %}
+                <p>اطلاعات کاربر وجود ندارد</p>
+            {% endif %}
+        </div>
+
+        <ul>
+            <li class="item-li i-users"><a href="{% url "management" %}">دانش آموزان</a></li>
+            <li class="item-li i-users"><a href="{% url "Seven_One_Teacher_Management" %}">معلمان</a></li>
+            <li class="item-li i-users is-active"><a href="{% url "staff_Management" %}">کارکنان</a></li>
+            <li class="item-li i-user__inforamtion"><a href="{% url "Seven_One_Absence_Management" %}">حضور و غیاب</a></li>
+        </ul>
+
+    </div>
+    <div class="content">
+        <div class="header d-flex item-center bg-white width-100 border-bottom padding-12-30">
+            <div class="header__right d-flex flex-grow-1 item-center">
+                <span class="bars"></span>
+            </div>
+            <div class="header__left d-flex flex-end item-center margin-top-2">
+                <a href="{% url "Home Page" %}" class="logout" title="خروج"></a>
+            </div>
+        </div>
+        <div class="main-content font-size-13">
+            <div class="tab__box">
+                <div class="tab__items">
+                    <a class="tab__item is-active" href="{% url "staff_Management" %}">کارکنان</a>
+                </div>
+            </div>
+            <div class="table__box">
+                <table class="table">
+                    <thead role="rowgroup">
+                        <tr role="row" class="title-row">
+                            <th>ردیف</th>
+                            <th>عکس</th>
+                            <th>نام و نام خانوادگی</th>
+                            <th>نام کاربری</th>
+                            <th>رمز عبور</th>
+                            <th>شماره تلفن</th>
+                            <th>صفت کاری</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if Staff_List %}
+                            {% for Staff in Staff_List %}
+                                <tr role="row" class="">
+                                    <td>{{forloop.counter}}</td>
+                                    <td><img src="{{ Staff.photo.url }}" alt="" style="border-radius: 6px; width: 70px; height: 70px;"></td>
+                                    <td>{{ Staff.name }}</td>
+                                    <td>{{ Staff.username }}</td>
+                                    <td>{{ Staff.password }}</td>
+                                    <td>{{ Staff.phone_number }}</td>
+                                    <td>{{ Staff.staff }}</td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="9" style="text-align: center;">کارکنان درسیستم هوشمند ثبت نشده است...</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static "Static Admin Dashboard/Teacher And Student/js/jquery-3.4.1.min.js" %}"></script>
+    <script src="{% static "Static Admin Dashboard/Teacher And Student/js/js.js" %}"></script>
+</body>
+
+</html>

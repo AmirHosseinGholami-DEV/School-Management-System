@@ -1,0 +1,30 @@
+:root{
+	--primary:#234ada;
+	--gradient: linear-gradient(to right,#4364df 0,#2342b1 51%,#3658d5 100%);
+	--gradientY: linear-gradient(to top,#234ada 0,#0e2ea5 100%,#234ada 100%);
+	--gradient-sec: linear-gradient(to right,#001e8b 0,#00219f 51%,#0024a9 100%);
+	--quote: url(../images/quotes-4.svg);
+	--primary-hover: #0e2ea7;
+	--primary-dark: #021e89;
+	--rgba-primary-05: rgba(35, 74, 218, 0.05);
+	--rgba-primary-1: rgba(35, 74, 218, 0.1);
+	--rgba-primary-2: rgba(35, 74, 218, 0.2);
+	--rgba-primary-3: rgba(35, 74, 218, 0.3);
+	--rgba-primary-4: rgba(35, 74, 218, 0.4);
+	--rgba-primary-5: rgba(35, 74, 218, 0.5);
+	--rgba-primary-6: rgba(35, 74, 218, 0.6);
+	--rgba-primary-7: rgba(35, 74, 218, 0.7);
+	--rgba-primary-8: rgba(35, 74, 218, 0.8);
+	--rgba-primary-9: rgba(35, 74, 218, 0.9);
+	--primary-light: #f1f4ff;
+}
+
+.gradient{
+	background-image:var(--gradient);
+}
+body{
+	color: #5e5e5e;	
+}
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, h1 a, h2 a, h3 a, h4 a, h5 a, h6 a{
+	color: #141752;
+}

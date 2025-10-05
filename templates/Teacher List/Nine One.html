@@ -1,0 +1,325 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+
+<head>
+
+    <!-- Meta -->
+    <meta charset="UTF-8">
+    <meta name="description"
+        content="استعداد های درخشان زنده یاد کردی یک مدرسه تیزهوشان هست که در برازجان هست و بهترین مدرسه استان بوشهر است و با کادر آموزشی بسیار مجرب است">
+    <meta name="keywords" content="برازجان، زنده یاد کردی، تیزهوشان، استعداد های درخشان، امیر حسین غلامی، مدرسه کردی">
+    <meta name="author" content="امیر حسین غلامی">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="canonical" href="https://kordiborazjan.ir" />
+    <link rel="alternate" href="https://kordiborazjan.ir" hreflang="fa-ir" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta property="og:url" content="https://kordiborazjan.ir">
+    <meta property="og:image" content="https://kordiborazjan.ir/static/Static%20Home/images/Logo.png">
+
+    <!-- Mobile Specific -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Title -->
+    <title>استعداد های درخشان زنده یاد کردی</title>
+
+    <!-- Mobile Specific -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Title -->
+    <title>استعداد های درخشان زنده یاد کردی</title>
+
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" href="{% static "Static Home/images/Sampad.svg" %}">
+
+    <link href="{% static "Static Teagher And Management/css/animate.css" %}" rel="stylesheet">
+
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="{% static "Static Teagher And Management/css/style.css" %}">
+    <link class="skin" rel="stylesheet" href="{% static "Static Teagher And Management/css/skin-2.css" %}">
+    <link rel="stylesheet" href="{% static "Static Teagher And Management/css/switcher.css" %}">
+    <link rel="stylesheet" href="{% static "Static Teagher And Management/css/rangeslider.css" %}">
+
+</head>
+
+<body id="bg">
+    <div class="page-wraper">
+        <!-- Header -->
+        <header class="site-header header  mo-left">
+            <!-- Main Header -->
+            <div class="sticky-header main-bar-wraper navbar-expand-lg">
+                <div class="main-bar clearfix ">
+                    <div class="container clearfix">
+
+                        <!-- Website Logo -->
+                        <div class="logo-header logo-dark ">
+                            <a href="{% url "Home Page" %}"><img src="{% static "Static Teagher And Management/images/Logo.png" %}" style="height: 120px; width: 120px;" alt=""></a>
+                        </div>
+
+                        <!-- Nav Toggle Button -->
+                        <button class="navbar-toggler collapsed navicon justify-content-end" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+					    </button>
+
+                        <div class="header-nav navbar-collapse collapse justify-content-end" id="navbarNavDropdown">
+                            <div class="logo-header logo-dark">
+                                <a href="index.html">
+                                    <img src="{% static "Static Teagher And Management/images/Logo.png" %}" alt="">
+                                </a>
+                            </div>
+                            <ul class="nav navbar-nav navbar">
+                                <li class="">
+                                    <a href="{% url "Home Page" %}">
+                                        <span>خانه</span>
+                                    </a>
+                                </li>
+
+                                <li class="sub-menu-down">
+                                    <a href="javascript:void(0);">
+                                        <span>معلمان</span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li><a href="{% url "Seven One Teacher List" %}">هفتم یک</a></li>
+                                        <li><a href="{% url "Seven Two Teacher List" %}">هفتم دو</a></li>
+                                        <li><a href="{% url "Eight One Teacher List" %}">هشتم یک</a></li>
+                                        <li><a href="{% url "Eight Two Teacher List" %}">هشتم دو</a></li>
+                                        <li><a href="{% url "Nine One Teacher List" %}">نهم یک</a></li>
+                                        <li><a href="{% url "Nine Two Teacher List" %}">نهم دو</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="sub-menu-down">
+                                    <a href="javascript:void(0);">
+                                        <span>دانش آموزان</span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li><a href="{% url "Seven One Student List" %}">هفتم یک</a></li>
+                                        <li><a href="{% url "Seven Two Student List" %}">هفتم دو</a></li>
+                                        <li><a href="{% url "Eight One Student List" %}">هشتم یک</a></li>
+                                        <li><a href="{% url "Eight Two Student List" %}">هشتم دو</a></li>
+                                        <li><a href="{% url "Nine One Student List" %}">نهم یک</a></li>
+                                        <li><a href="{% url "Nine Two Student List" %}">نهم دو</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="">
+                                    <a href="{% url "Staff Page" %}">
+                                        <span>کارکنان</span>
+                                    </a>
+                                </li>
+
+                                <li class="">
+                                    <a href="{% url "About Page" %}">
+                                        <span>درباره ما</span>
+                                    </a>
+                                </li>
+
+
+                                <li class="">
+                                    <a href="{% url "News Page" %}">
+                                        <span>اخبار</span>
+                                    </a>
+                                </li>
+
+                                <li class="">
+                                    <a href="{% url "Contact Page" %}">
+                                        <span>تماس با ما</span>
+                                    </a>
+                                </li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Main Header End -->
+        </header>
+        <!-- Header End -->
+        <div class="page-content bg-white">
+            <!-- Banner  -->
+            <div class="dlab-bnr-inr overlay-primary-dark" style="background-image: url({% static "Static Teagher And Management/images/Two.jpg" %});">
+                <div class="container">
+                    <div class="dlab-bnr-inr-entry">
+                        <h1 style="font-family: B Homa;">معلمان نهم یک</h1>
+                        <!-- Breadcrumb Row -->
+                        <!-- Breadcrumb Row End -->
+                    </div>
+                </div>
+            </div>
+            <!-- Banner End -->
+
+            <!-- Team -->
+           <section class="content-inner" style="background-image: url({% static "Static Teagher And Management/images/bg1.png" %});">
+            <div class="container">
+                <div class="row">
+                    {% if teacher_nine_one %}
+                        {% for teacher in teacher_nine_one %}
+                            <div class="col-xl-4 col-md-6 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.1s">
+                                <div class="dlab-team style-1 m-b30">
+                                    <div class="dlab-media dlab-img-effect zoom zoom-slow">
+                                        <img src="{{ teacher.photo.url }}" alt="">
+                                    </div>
+                                    <div class="dlab-content">
+                                        <div class="clearfix">
+                                            <h4 class="dlab-name" style="font-family: B Homa;">{{ teacher.name }}</h4>
+                                            <span class="dlab-position" style="font-family: IRANSansWeb;">دبیر درس {{ teacher.course }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="9" style="text-align: center;"> معلم درسیستم هوشمند ثبت نشده است...</td>
+                            </tr>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    <!-- Footer -->
+    <footer class="site-footer style-1" id="footer" style="background-image: url({% static "Static Home/images/bg10.png" %});">
+        <div class="footer-top">
+            <div class="container">
+                <div class="wrapper-inner">
+                    <div class="row align-items-center">
+                        <div class="col-xl-4 col-md-5 wow fadeIn" data-wow-duration="2s" data-wow-delay="0.5s"="0.5s"="0.5s"="0.5s"="0.5s"="0.1s">
+                            <div class="logo mb-2">
+                                <img src="{% static "Static Home/images/Logo.png" %}" style="height: 200px; margin-top: -50px;" alt="">
+                            </div>
+                            <p style="margin-top: -30px;">دبیرستان متوسطه اول استعداد های درخشان زنده یاد کردی.</p>
+                        </div>
+                        <div class="col-md-7 col-xl-6 ms-auto wow fadeIn" data-wow-duration="2s" data-wow-delay="0.5s"="0.5s"="0.5s"="0.5s"="0.5s"="0.2s">
+                            <h6 class="title" style="font-family: B Homa; color: white;font-size: 30px; ">مشترک شدن در اخبار مدرسه</h6>
+                            <div class="dlab-subscribe style-4">
+                                <form class="dzSubscribe" action="{% url "Home Page" %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="dzSubscribeMsg"></div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input name="email" required="required" type="email" class="form-control" placeholder="آدرس ایمیل...">
+                                            <div class="input-group-addon">
+                                                <button name="submit" value="Submit" type="submit" class="btn btn-light">مشترک شدن</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-sm-6 wow fadeIn" data-wow-duration="2s" data-wow-delay="0.5s"="0.5s"="0.5s"="0.5s"="0.5s"="0.3s">
+                        <div class="widget widget_getintuch">
+                            <h5 class="footer-title" style="font-family: B Homa;">اطلاعات تماس</h5>
+                            <ul>
+                                <li>
+                                    <i class="fas fa-map-marker-alt "></i>
+                                    <span>ایران، بوشهر، برازجان، خیابان نبوت</span>
+                                </li>
+                                <li>
+                                    <i class="fa fa-phone"></i>
+                                    <span>1722 3424 77 98+</span>
+                                </li>
+                                <li>
+                                    <i class="fa fa-envelope "></i>
+                                    <span>kordischool@gmail.com</span>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-sm-6 wow fadeIn" data-wow-duration="2s" data-wow-delay="0.5s"="0.5s"="0.5s"="0.5s"="0.5s"="0.4s">
+                        <div class="widget widget_services style-1">
+                            <h5 class="footer-title" style="font-family: B Homa;">صفحه ها</h5>
+                            <ul>
+                                <li><a href="{% url "Home Page" %}">خانه</a></li>
+                                <li><a href="{% url "login" %}">ورود</a></li>
+                                <li><a href="{% url "Staff Page" %}">کارکنان</a></li>
+                                <li><a href="{% url "About Page" %}">درباره ما</a></li>
+                                <li><a href="{% url "News Page" %}">اخبار</a></li>
+                                <li><a href="{% url "Contact Page" %}">تماس با ما</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-sm-6 wow fadeIn" data-wow-duration="2s" data-wow-delay="0.5s"="0.5s"="0.5s"="0.5s"="0.5s"="0.5s">
+                        <div class="widget widget_services style-1">
+                            <h5 class="footer-title" style="font-family: B Homa;">معلمان</h5>
+                            <ul>
+                                <li><a href="{% url "Seven One Teacher List" %}">هفتم یک</a></li>
+                                <li><a href="{% url "Seven Two Teacher List" %}">هفتم دو</a></li>
+                                <li><a href="{% url "Eight One Teacher List" %}">هشتم یک</a></li>
+                                <li><a href="{% url "Eight Two Teacher List" %}">هشتم دو</a></li>
+                                <li><a href="{% url "Nine One Teacher List" %}">نهم یک</a></li>
+                                <li><a href="{% url "Nine Two Teacher List" %}">نهم دو</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-sm-6 wow fadeIn" data-wow-duration="2s" data-wow-delay="0.5s"="0.5s"="0.5s"="0.5s"="0.5s"="0.6s">
+                        <div class="widget widget_services style-1">
+                            <h5 class="footer-title" style="font-family: B Homa;">دانش آموزان</h5>
+                            <ul>
+                                <li><a href="{% url "Seven One Student List" %}">هفتم یک</a></li>
+                                <li><a href="{% url "Seven Two Student List" %}">هفتم دو</a></li>
+                                <li><a href="{% url "Eight One Student List" %}">هشتم یک</a></li>
+                                <li><a href="{% url "Eight Two Student List" %}">هشتم دو</a></li>
+                                <li><a href="{% url "Nine One Student List" %}">نهم یک</a></li>
+                                <li><a href="{% url "Nine Two Student List" %}">نهم دو</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- footer bottom part -->
+        <div class="footer-bottom wow fadeIn" data-wow-duration="2s" data-wow-delay="0.5s"="0.5s"="0.5s"="0.5s"="0.5s"="0.2s">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 text-center"> 
+                        <span class="copyright-text">ساخته و برنامه نویسی شده توسط <a target="">امیر حسین غلامی</a></span> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer End -->
+    <button class="scroltop icon-up" type="button"><i class="fa fa-arrow-up"></i></button>
+    </div>
+    <!-- JAVASCRIPT FILES ========================================= -->
+    <script src="{% static "Static Home/js/jquery.min.js" %}"></script>
+    <!-- JQUERY.MIN JS -->
+    <script src="{% static "Static Home/js/wow.js" %}"></script>
+    <!-- WOW JS -->
+    <script src="{% static "Static Home/js/bootstrap.bundle.min.js" %}"></script>
+    <!-- BOOTSTRAP.MIN JS -->
+    <script src="{% static "Static Home/js/owl.carousel.js" %}"></script>
+    <script src="{% static "Static Home/js/magnific-popup.js" %}"></script>
+    <!-- MAGNIFIC-POPUP JS -->
+    <script src="{% static "Static Home/js/waypoints-min.js" %}"></script>
+    <!-- WAYPOINTS JS -->
+    <script src="{% static "Static Home/js/counterup.min.js" %}"></script>
+    <!-- COUNTERUP JS -->
+    <script src="{% static "Static Home/js/imagesloaded.js" %}"></script>
+    <!-- IMAGESLOADED -->
+    <script src="{% static "Static Home/js/masonry-4.2.2.js" %}"></script>
+    <!-- MASONRY -->
+    <script src="{% static "Static Home/js/isotope.pkgd.min.js" %}"></script>
+    <!-- ISOTOPE -->
+    <script src="{% static "Static Home/js/lightgallery-all.min.js" %}"></script>
+    <!-- LIGHTGALLERY -->
+    <script src="{% static "Static Home/js/bootstrap-select.min.js" %}"></script>
+    <!-- BOOTSTRAP SELECT -->
+    <script src="{% static "Static Home/js/dz.carousel.js" %}"></script>
+    <!-- OWL-CAROUSEL -->
+
+    <!-- CONTACT JS  -->
+    <script src="{% static "Static Home/js/custom.js" %}"></script>
+    <!-- CUSTOM JS -->
+
+    <script src="{% static "Static Home/js/rangeslider.js" %}"></script>
+    <!-- SWITCHER JS -->
+
+</body>
+
+</html>
