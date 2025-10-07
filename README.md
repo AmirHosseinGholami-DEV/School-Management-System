@@ -37,5 +37,5 @@ Visit http://localhost:8000 in your browser to access the application.
 
 If you have any questions or need assistance, feel free to reach out:
 
-baset behzad: amirhosseingholami1389work@gmail.com
+Email: amirhosseingholami1389work@gmail.com
 GitHub: https://github.com/AmirHosseinGholami-DEV/
