@@ -1,3 +1,5 @@
+<div align="center" style="margin-bottom: 20px;"> <a href="https://github.com/AmirHosseinGholami-DEV/School-Management-System/" target="_blank" style="text-decoration: none; color: inherit;"> <img src="./Screenshot.png" alt="School Management System" style="max-width:90%; height:auto; border-radius:20%; box-shadow:0 8px 24px rgba(0,0,0,0.4);" /> <h3>School Management System</h3> </a> </div>
+
 ## Installation
 
 Follow these steps to set up the project on your local machine:
